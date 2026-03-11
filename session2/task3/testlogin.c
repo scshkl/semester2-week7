@@ -26,10 +26,11 @@ int main(void)
 
     #ifdef VISIBLE
       printf("Enter your password: ");
-      gets(input);
+      gets(input, 8);
     #else
       char* tmp = getpass("Enter your password: ");
-      strcpy(input, tmp);
+      strncpy(input, tmp, sizeof(input) - 1);   // use this to set the correct size instead of copy everything
+      //strcpy(input, tmp);
     #endif
 
     /* Make sure strings are null-terminated */

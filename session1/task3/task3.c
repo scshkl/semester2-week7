@@ -24,6 +24,7 @@ int* get_values(int argc, char* argv[])
 
     LOG_FMT("get_values(): returning %p\n", values);
 
+
     return values;
 }
 

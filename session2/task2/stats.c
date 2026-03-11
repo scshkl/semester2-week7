@@ -21,9 +21,12 @@ void read_data(const char* filename, float data[], int* size)
                 break;
             }
 
-            sscanf(line, "%f", &value);
-            data[i] = value;
-            (*size)++;
+            int count = sscanf(line, "%f", &value);   // changes here to see if sscanf successfull
+            if(count && value > 0) {                   // and here
+                data[i] = value;
+                (*size)++;
+            }
+
         }
 
         fclose(infile);
@@ -75,10 +78,17 @@ int main(int argc, char* argv[])
 
     read_data(argv[1], data, &size);
 
-    float mean = mean_value(data, size);
-    float std_dev = standard_deviation(data, size, mean);
+    if (size > 0){  //change here
+        float mean = mean_value(data, size);
+        float std_dev = standard_deviation(data, size, mean);
+        display_stats(mean, std_dev);
+    }
+    else{
+        fprintf(stderr, "No valid data\n");
+    }
 
-    display_stats(mean, std_dev);
+
+    
 
     return 0;
 }
